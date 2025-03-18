@@ -1,8 +1,8 @@
 import { parse } from "acorn";
 import { noConsoleRule } from "./rules/no-console.js";
+import fs from "fs";
 
 export function lintFile(filePath) {
-    const fs = require("fs");
     const code = fs.readFileSync(filePath, "utf-8");
     const ast = parse(code, { ecmaVersion: "latest" });
 
