@@ -46,3 +46,7 @@ coverage/
 
 # Bun
 .bun/
+
+
+# package-lock.json
+package-lock.json
