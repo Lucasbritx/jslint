@@ -4,6 +4,7 @@ import { noConsoleRule } from "./rules/no-console.js";
 import { noMultipleEmptyLinesRule } from "./rules/no-multiple-empty-lines.js";
 import { noTrailingEmptyLinesRule } from "./rules/no-trailing-empty-lines.js";
 import { noVarRule } from "./rules/no-var-rule.js";
+import { preferConstRule } from "./rules/prefer-const.js";
 
 export function lintFile(filePath) {
     const code = fs.readFileSync(filePath, "utf-8");
@@ -14,6 +15,7 @@ export function lintFile(filePath) {
     noMultipleEmptyLinesRule(code, errors);
     noTrailingEmptyLinesRule(code, errors);
     noVarRule(ast, errors);
+    preferConstRule(ast, errors);
 
     errors.forEach(err => console.log(`[Erro] ${err.message}`));
     process.exit(errors.length > 0 ? 1 : 0);
