@@ -4,6 +4,7 @@ import { noConsoleRule } from "./rules/no-console.js";
 import { noMultipleEmptyLinesRule } from "./rules/no-multiple-empty-lines.js";
 import { noTrailingEmptyLinesRule } from "./rules/no-trailing-empty-lines.js";
 import { noVarRule } from "./rules/no-var-rule.js";
+import { noUnusedVarsRule } from "./rules/no-unused-vars.js";
 import { preferConstRule } from "./rules/prefer-const.js";
 
 export function lintFile(filePath) {
@@ -15,6 +16,7 @@ export function lintFile(filePath) {
     noMultipleEmptyLinesRule(code, errors);
     noTrailingEmptyLinesRule(code, errors);
     noVarRule(ast, errors);
+    noUnusedVarsRule(ast, errors);
     preferConstRule(ast, errors);
 
     errors.forEach(err => console.log(`[Erro] ${err.message}`));
