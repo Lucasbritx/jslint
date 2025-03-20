@@ -18,6 +18,7 @@ export function lintFile(filePath) {
     noVarRule(ast, errors);
     noUnusedVarsRule(ast, errors);
     preferConstRule(ast, errors);
+    // TODO add no declared variable trying to be used
 
     errors.forEach(err => console.log(`[Erro] ${err.message}`));
     process.exit(errors.length > 0 ? 1 : 0);
