@@ -9,6 +9,9 @@ var testing4 = "hey my text";
 
 const myFunction = () => {
     console.log("hi");
+    console.log(testing);
+    const myVar = testing4;
+    console.log(myVar);
     return 'Hello World!';
     }
 
