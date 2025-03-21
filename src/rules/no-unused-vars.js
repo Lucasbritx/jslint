@@ -5,18 +5,26 @@ export function noUnusedVarsRule(ast, errors) {
     function traverse(node, parent) {
         if (!node || typeof node !== "object") return;
 
-        // Se for uma declaração de variável, adiciona ao conjunto de declaradas
+        // Captura todas as variáveis declaradas
         if (node.type === "VariableDeclarator" && node.id?.name) {
             declaredVars.add(node.id.name);
         }
 
-        // Se for um identificador e estiver sendo usado (fora de uma declaração de variável)
+        // Verifica se a variável é usada
         if (
             node.type === "Identifier" &&
-            parent?.type !== "VariableDeclarator" && // Ignora quando está sendo declarado
-            parent?.type !== "FunctionDeclaration" && // Evita falsos positivos em funções
+            parent?.type !== "VariableDeclarator" && // Não conta a declaração
+            parent?.type !== "FunctionDeclaration" &&
             parent?.type !== "FunctionExpression" &&
             parent?.type !== "ArrowFunctionExpression"
+        ) {
+            usedVars.add(node.name);
+        }
+
+        // Verifica se está sendo usada como atribuição
+        if (
+            parent?.type === "AssignmentExpression" && parent.right === node ||
+            parent?.type === "VariableDeclarator" && parent.init === node
         ) {
             usedVars.add(node.name);
         }
@@ -33,7 +41,6 @@ export function noUnusedVarsRule(ast, errors) {
 
     traverse(ast, null);
 
-    // Variáveis declaradas mas não utilizadas
     declaredVars.forEach(varName => {
         if (!usedVars.has(varName)) {
             errors.push({
