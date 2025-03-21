@@ -19,5 +19,13 @@ const myFunction = () => {
     return 'Hello World!';
     }
 
+const myFunctionNotUsed = () => {
+    console.log("hi");
+    console.log(testing);
+    return 'Hello World!';
+    }
 
 
+myFunctionNotDeclared();
+console.log(noDeclaredVar);
+console.log(noDeclaredVar2);

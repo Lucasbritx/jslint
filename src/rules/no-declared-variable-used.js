@@ -1,1 +1,0 @@
-// Rule for find no declared variables trying to be used
